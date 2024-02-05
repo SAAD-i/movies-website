@@ -20,8 +20,8 @@ const Navbar = () => {
   const dispatch = useDispatch();
   return (
     <>
-      <div className="flex bg-gray-600 text-gray-300 h-20 w-full justify-between items-center px-4 rounded-md font-serif">
-        <h1 className=" text-2xl font-bold bg-teal-900 rounded-md py-3 px-4 text-center shadow-md">
+      <div className="flex bg-black text-gray-300 h-20 w-full justify-between items-center px-4 rounded-md font-serif">
+        <h1 className=" text-2xl font-bold bg-white text-black rounded-md py-3 px-4 text-center shadow-md">
           MoviesWeb
         </h1>
         <div className="hidden md:block">

@@ -8,6 +8,9 @@ const initialState = {
         topRatedMovies : [],
         upcomingMovies : [],
     },
+    tv_series : {
+        series : [],
+    },
     isLoading:false,
 }
 
@@ -16,32 +19,38 @@ export const getPopularMovies = createAsyncThunk("getPopularMovies", async () =>
         `https://api.themoviedb.org/3/movie/popular?api_key=7ff2b8ed34325fa1f74a09be9cc731b9`
       );
       const data = response.data;
-      console.log(data.results);
       return data;
-  });
+    });
+export const getTopMovies = createAsyncThunk("getTopMovies",async()=>{
+    const response = await axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=7ff2b8ed34325fa1f74a09be9cc731b9`);
+    const data = response.data;
+    return data;
+})
+export const getTVSeries = createAsyncThunk("getTVSeries",async()=>{
+    const response = await axios.get(`https://api.themoviedb.org/3/tv/top_rated?api_key=7ff2b8ed34325fa1f74a09be9cc731b9`);
+    const data = response.data;
+    return data;
+})
 
 const Slice = createSlice({
     name: 'movie',
     initialState,
     reducers: {
-        // getCountPopularMovies : (state, action)=>{
-        //     const length = state.movies.popularMovies.length
-        //     const count = action.payload>length ? length : action.payload;
-        //     const movie = []
-        //     for(let i = 0 ; i < count ; i++){
-        //         const index = Math.ceil(Math.random()*(length-1));
-        //         movie[i] = state.movies.popularMovies[index]
-        //     }
-        //     return movie;
-        // }
     },
     extraReducers : (builder)=>{
         builder.addCase(getPopularMovies.fulfilled, (state, action)=>{
             state.isLoading = false;
             state.movies.popularMovies = action.payload.results
-            console.log("Api Called")
         })
-    }
+        .addCase(getTopMovies.fulfilled, (state, action)=>{
+            state.isLoading=false;
+            state.movies.topRatedMovies=action.payload.results
+        })
+        .addCase(getTVSeries.fulfilled, (state, action)=>{
+            state.isLoading=false;
+            state.tv_series.series = action.payload.results
+        })
+    },
 })
 
 export const {} = Slice.actions

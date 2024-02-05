@@ -22,19 +22,31 @@ const Card = (props) => {
     <>
       {value != undefined ? (
         <Tilt options={defaultOptions}>
-          <div className="w-[350px] h-[550px] text-white duration-300 flex flex-col justify-between rounded-md p-2 font-serif hover:duration-500 hover:cursor-pointer  hover:bg-gray-300 hover:shadow-2xl shadow-black">
+          <div
+            onClick={() => {
+              console.log("Movie Click");
+            }}
+            className="w-[250px] h-[470px] text-white duration-300 flex flex-col justify-between rounded-md p-2 font-serif hover:duration-500 hover:cursor-pointer  hover:bg-gray-300 hover:shadow-2xl shadow-black"
+          >
             <div className="bg-gradient-to-r from-amber-700 to-orange-700 rounded-md overflow-hidden text-center">
               <img
                 src={`https://image.tmdb.org/t/p/w220_and_h330_face/${value.poster_path}`}
                 alt="Image"
-                width={400}
-                height={400}
+                width={300}
+                height={300}
               />
             </div>
-            <h1 className="font-bold text-xl h-10">{value.original_title}</h1>
+            <h1 className="font-bold text-xl h-10">
+              {value.original_title
+                ? value.original_title
+                : value.original_name}
+            </h1>
             {/* <p className='line-clamp-2'>{value.overview}</p> */}
             <div className="flex justify-between items-center">
-              <h3 className="">Release Data : {value.release_date}</h3>
+              <h3 className="">
+                {value.release_date ? "Release Date : " : "First Air Date : "}
+                {value.release_date ? value.release_date : value.first_air_date}
+              </h3>
             </div>
           </div>
         </Tilt>
