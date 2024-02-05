@@ -6,6 +6,9 @@ const initialState = {
         isOpen : false,
         hamOpen : false,
         list : ["Action", "Horror", "SciFy"],
+        home : false,
+        movie : false,
+        cat : false,
     }
 }
 
@@ -27,10 +30,20 @@ const Slice = createSlice({
             }
             else{
                 state.navData.hamOpen = !state.navData.hamOpen
-            }        }
+            }        
+        },
+        changeHome : (state, action)=>{
+            state.navData.home = action.payload
+        },
+        changeMovie : (state, action)=>{
+            state.navData.movie = action.payload
+        },
+        changeCat : (state, action)=>{
+            state.navData.cat = action.payload
+        },
     }
 })
 
-export const {changeIsOpen, changeHamOpen} = Slice.actions
+export const {changeIsOpen, changeHamOpen, changeCat, changeHome, changeMovie} = Slice.actions
 
 export default Slice.reducer

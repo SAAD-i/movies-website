@@ -1,12 +1,18 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import Navbar from "@/Components/Navbar";
+import Link from "next/link";
 import Dropdown from "@/Components/Dropdown";
 import Card from "@/Components/Card";
 import Section from "@/Components/Section";
 import Hero from "@/Components/Hero";
 import axios from "axios";
-import { changeIsOpen, changeHamOpen } from "@/Redux/slice";
+import {
+  changeIsOpen,
+  changeHamOpen,
+  changeCat,
+  changeMovie,
+  changeHome,
+} from "@/Redux/slice";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getPopularMovies,
@@ -38,6 +44,9 @@ const page = () => {
     dispatch(getPopularMovies());
     dispatch(getTopMovies());
     dispatch(getTVSeries());
+    dispatch(changeCat(false));
+    dispatch(changeMovie(false));
+    dispatch(changeHome(true));
   }, []);
 
   return (
@@ -47,10 +56,9 @@ const page = () => {
         //   isOpen ? dispatch(changeIsOpen(false)) : "";
         //   hamOpen ? dispatch(changeHamOpen(false)) : "";
         // }}
-        className="flex flex-col justify-start items-center gap-10 p-2"
+        className="flex flex-col justify-start items-center gap-10 p-2 pt-10"
       >
         {/* <Dropdown/> */}
-        <Navbar />
         {/* <div className='grid grid-cols-3 p-10 gap-8'>
         {movie.map((val,i)=>{
           return (

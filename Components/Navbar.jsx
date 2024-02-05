@@ -17,18 +17,22 @@ const Navbar = () => {
   const isOpen = useSelector((data) => data.StateReducer.navData.isOpen);
   const hamOpen = useSelector((data) => data.StateReducer.navData.hamOpen);
   const list = useSelector((data) => data.StateReducer.navData.list);
+  const home = useSelector((data) => data.StateReducer.navData.home);
+  const movie = useSelector((data) => data.StateReducer.navData.movie);
+  const cat = useSelector((data) => data.StateReducer.navData.cat);
+
   const dispatch = useDispatch();
   return (
     <>
-      <div className="flex bg-black text-gray-300 h-20 w-full justify-between items-center px-4 rounded-md font-serif">
-        <h1 className=" text-2xl font-bold bg-white text-black rounded-md py-3 px-4 text-center shadow-md">
+      <div className="flex bg-black text-gray-300 h-20 w-full justify-between items-center px-24 font-serif">
+        <h1 className=" text-3xl font-extrabold text-white rounded-md py-3 px-4 text-center shadow-md">
           MoviesWeb
         </h1>
         <div className="hidden md:block">
           <ul className="flex gap-5 items-center font-bold lg:gap-12">
             <Link
-              href={""}
-              className="px-6 py-3 rounded-md hover:bg-gray-500 duration-300 hover:text-white hover:shadow-md"
+              href={"./"}
+              className={`px-6 py-3 rounded-md ${home ? "bg-gray-500 text-white shadow-md" : ""}  hover:bg-gray-500 duration-300 hover:text-white hover:shadow-md`}
             >
               Home
             </Link>
@@ -38,7 +42,7 @@ const Navbar = () => {
                   // setIsOpen(!isOpen);
                   dispatch(changeIsOpen());
                 }}
-                className={`flex items-center justify-between active:border-2 duration-100 w-36 px-4 py-3 rounded-md ${isOpen ? "bg-gray-500 text-white border-2" : ""} hover:bg-gray-500 duration-300 hover:text-white hover:shadow-md`}
+                className={`flex items-center justify-between active:border-2 ${cat ? "bg-gray-500 text-white shadow-md" : ""} duration-100 w-36 px-4 py-3 rounded-md ${isOpen ? "bg-gray-500 text-white border-2" : ""} hover:bg-gray-500 duration-300 hover:text-white hover:shadow-md`}
               >
                 <div>Categories</div>
                 <div>
@@ -46,7 +50,7 @@ const Navbar = () => {
                 </div>
               </button>
               {isOpen && (
-                <div className="flex flex-col gap-4 w-36 px-2 py-3 absolute top-24 bg-gray-400 rounded-md">
+                <div className="flex flex-col gap-4 w-36 px-2 py-3 fixed top-24 bg-gray-400 rounded-md">
                   {list.map((val, i) => {
                     return (
                       <Link
@@ -68,14 +72,14 @@ const Navbar = () => {
             </div>
             {/* <Dropdown/> */}
             <Link
-              href={""}
-              className="px-6 py-3 rounded-md hover:bg-gray-500 duration-300 hover:text-white hover:shadow-md"
+              href={"/Movies"}
+              className={`px-6 py-3 rounded-md ${movie ? "bg-gray-500 text-white shadow-md" : ""} hover:bg-gray-500 duration-300 hover:text-white hover:shadow-md`}
             >
               Movies
             </Link>
           </ul>
         </div>
-        <button className="font-bold bg-green-800 rounded-full py-2 px-4 text-center hover:text-white duration-300 hover:shadow-md hidden md:block hover:scale-105 ease-in-out">
+        <button className="font-bold bg-green-800 rounded-md py-2 px-4 text-center hover:text-white duration-300 hover:shadow-md hidden md:block hover:scale-105 ease-in-out">
           Signup
         </button>
         {/* This the hamburger button for Mobile view */}
@@ -144,7 +148,7 @@ const Navbar = () => {
               >
                 Movies
               </Link>
-              <button className="font-bold bg-green-800 rounded-full py-2 px-4 text-center hover:text-white duration-300 hover:shadow-md hover:scale-105 ease-in-out">
+              <button className="font-bold bg-green-800 rounded-md py-2 px-4 text-center hover:text-white duration-300 hover:shadow-md hover:scale-105 ease-in-out">
                 Signup
               </button>
             </ul>
