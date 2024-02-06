@@ -2,6 +2,7 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
 import { Tilt } from "react-tilt";
+import Link from "next/link";
 // import poster from 'images/poster'
 const Card = (props) => {
   const { value } = props;
@@ -22,33 +23,37 @@ const Card = (props) => {
     <>
       {value != undefined ? (
         <Tilt options={defaultOptions}>
-          <div
-            onClick={() => {
-              console.log("Movie Click");
-            }}
-            className="w-[250px] h-[470px] text-white duration-300 flex flex-col justify-between rounded-md p-2 font-serif hover:duration-500 hover:cursor-pointer  hover:bg-gray-300 hover:shadow-2xl shadow-black"
-          >
-            <div className="bg-gradient-to-r from-amber-700 to-orange-700 rounded-md overflow-hidden text-center">
-              <img
-                src={`https://image.tmdb.org/t/p/w220_and_h330_face/${value.poster_path}`}
-                alt="Image"
-                width={300}
-                height={300}
-              />
+          <Link href={`/Movie/${value.id}`}>
+            <div
+              onClick={() => {
+                console.log("Movie Click");
+              }}
+              className="w-[250px] h-[470px] text-white duration-300 flex flex-col justify-between rounded-md p-2 font-serif hover:duration-500 hover:cursor-pointer  hover:bg-gray-300 hover:shadow-2xl shadow-black"
+            >
+              <div className="bg-gradient-to-r from-amber-700 to-orange-700 rounded-md overflow-hidden text-center">
+                <img
+                  src={`https://image.tmdb.org/t/p/w220_and_h330_face/${value.poster_path}`}
+                  alt="Image"
+                  width={300}
+                  height={300}
+                />
+              </div>
+              <h1 className="font-bold text-xl h-10">
+                {value.original_title
+                  ? value.original_title
+                  : value.original_name}
+              </h1>
+              {/* <p className='line-clamp-2'>{value.overview}</p> */}
+              <div className="flex justify-between items-center">
+                <h3 className="">
+                  {value.release_date ? "Release Date : " : "First Air Date : "}
+                  {value.release_date
+                    ? value.release_date
+                    : value.first_air_date}
+                </h3>
+              </div>
             </div>
-            <h1 className="font-bold text-xl h-10">
-              {value.original_title
-                ? value.original_title
-                : value.original_name}
-            </h1>
-            {/* <p className='line-clamp-2'>{value.overview}</p> */}
-            <div className="flex justify-between items-center">
-              <h3 className="">
-                {value.release_date ? "Release Date : " : "First Air Date : "}
-                {value.release_date ? value.release_date : value.first_air_date}
-              </h3>
-            </div>
-          </div>
+          </Link>
         </Tilt>
       ) : (
         ""

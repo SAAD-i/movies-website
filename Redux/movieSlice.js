@@ -15,11 +15,15 @@ const initialState = {
 }
 
 export const getPopularMovies = createAsyncThunk("getPopularMovies", async () => {
-      const response = await axios.get(
-        `https://api.themoviedb.org/3/movie/popular?api_key=7ff2b8ed34325fa1f74a09be9cc731b9`
-      );
-      const data = response.data;
-      return data;
+    let results=[];
+      for(let i=1;i<=1;i++){
+        let response = await axios.get(
+            `https://api.themoviedb.org/3/movie/popular?api_key=7ff2b8ed34325fa1f74a09be9cc731b9&page=${i}`
+          );
+          let data = response.data;
+          results = results.concat(data.results);
+      }
+      return results;
     });
 export const getTopMovies = createAsyncThunk("getTopMovies",async()=>{
     const response = await axios.get(`https://api.themoviedb.org/3/movie/top_rated?api_key=7ff2b8ed34325fa1f74a09be9cc731b9`);
@@ -40,7 +44,7 @@ const Slice = createSlice({
     extraReducers : (builder)=>{
         builder.addCase(getPopularMovies.fulfilled, (state, action)=>{
             state.isLoading = false;
-            state.movies.popularMovies = action.payload.results
+            state.movies.popularMovies = action.payload
         })
         .addCase(getTopMovies.fulfilled, (state, action)=>{
             state.isLoading=false;

@@ -31,7 +31,7 @@ const Navbar = () => {
         <div className="hidden md:block">
           <ul className="flex gap-5 items-center font-bold lg:gap-12">
             <Link
-              href={"./"}
+              href={"/"}
               className={`px-6 py-3 rounded-md ${home ? "bg-gray-500 text-white shadow-md" : ""}  hover:bg-gray-500 duration-300 hover:text-white hover:shadow-md`}
             >
               Home

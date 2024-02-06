@@ -11,8 +11,6 @@ const Movies = () => {
   const dispatch = useDispatch();
   console.log(movies);
   useEffect(() => {
-    // dispatch(getPopularMovies());
-    // dispatch(getTopMovies());
     dispatch(changeCat(false));
     dispatch(changeHome(false));
     dispatch(changeMovie(true));
