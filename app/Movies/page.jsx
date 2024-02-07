@@ -1,8 +1,9 @@
 "use client";
 import Card from "@/Components/Card";
-import { changeCat, changeHome, changeMovie } from "@/Redux/slice";
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { getPopularMovies, getTopMovies } from "@/Redux/movieSlice";
+
 const Movies = () => {
   let movies = useSelector((data) => data.MovieReducer.movies.popularMovies);
   movies = movies.concat(
@@ -11,13 +12,12 @@ const Movies = () => {
   const dispatch = useDispatch();
   console.log(movies);
   useEffect(() => {
-    dispatch(changeCat(false));
-    dispatch(changeHome(false));
-    dispatch(changeMovie(true));
+    dispatch(getPopularMovies());
+    dispatch(getTopMovies());
   }, []);
   return (
     <>
-      <div className="grid grid-cols-5 p-16">
+      <div className="grid pt-32 grid-cols-5 p-16">
         {movies.map((val, i) => {
           return <Card key={i} value={val} />;
         })}

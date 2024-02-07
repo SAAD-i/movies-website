@@ -5,10 +5,40 @@ const initialState = {
     navData : {
         isOpen : false,
         hamOpen : false,
-        list : ["Action", "Horror", "SciFy"],
-        home : false,
-        movie : false,
-        cat : false,
+        list : [
+            {
+                genre : "Action",
+                id : 28
+            },
+            {
+                genre : "Adventure",
+                id : 12
+            },
+            {
+                genre : "Comedy",
+                id : 35
+            },
+            {
+                genre : "Drama",
+                id : 18
+            },
+            {
+                genre : "Animation",
+                id : 16
+            },
+            {
+                genre : "Family",
+                id : 10751
+            },
+            {
+                genre : "Crime",
+                id : 80
+            },
+            {
+                genre : "Documentary",
+                id : 99
+            }
+        ]
     }
 }
 
@@ -31,15 +61,6 @@ const Slice = createSlice({
             else{
                 state.navData.hamOpen = !state.navData.hamOpen
             }        
-        },
-        changeHome : (state, action)=>{
-            state.navData.home = action.payload
-        },
-        changeMovie : (state, action)=>{
-            state.navData.movie = action.payload
-        },
-        changeCat : (state, action)=>{
-            state.navData.cat = action.payload
         },
     }
 })

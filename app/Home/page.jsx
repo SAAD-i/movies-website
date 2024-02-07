@@ -6,20 +6,16 @@ import Card from "@/Components/Card";
 import Section from "@/Components/Section";
 import Hero from "@/Components/Hero";
 import axios from "axios";
-import {
-  changeIsOpen,
-  changeHamOpen,
-  changeCat,
-  changeMovie,
-  changeHome,
-} from "@/Redux/slice";
+// import { changeIsOpen, changeHamOpen } from "../Redux/slice";
+import { changeIsOpen } from "@/Redux/slice";
 import { useDispatch, useSelector } from "react-redux";
 import {
   getPopularMovies,
   getTVSeries,
   getTopMovies,
   getUpcomingMovies,
-} from "../Redux/movieSlice";
+} from "../../Redux/movieSlice";
+
 const page = () => {
   const popularMovies = useSelector(
     (data) => data.MovieReducer.movies.popularMovies,
@@ -40,13 +36,11 @@ const page = () => {
   //   setmovie(data);
   //   console.log(data);
   // };
+  console.log(popularMovies);
   useEffect(() => {
     dispatch(getPopularMovies());
     dispatch(getTopMovies());
     dispatch(getTVSeries());
-    dispatch(changeCat(false));
-    dispatch(changeMovie(false));
-    dispatch(changeHome(true));
   }, []);
 
   return (
@@ -56,7 +50,7 @@ const page = () => {
         //   isOpen ? dispatch(changeIsOpen(false)) : "";
         //   hamOpen ? dispatch(changeHamOpen(false)) : "";
         // }}
-        className="flex flex-col justify-start items-center gap-10 p-2 pt-10"
+        className="flex flex-col justify-start items-center gap-10 p-2 pt-32"
       >
         {/* <Dropdown/> */}
         {/* <div className='grid grid-cols-3 p-10 gap-8'>

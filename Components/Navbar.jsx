@@ -9,6 +9,7 @@ import {
 import { GiHamburgerMenu } from "react-icons/gi";
 import { changeIsOpen, changeHamOpen } from "@/Redux/slice";
 import { useDispatch, useSelector } from "react-redux";
+import { usePathname } from "next/navigation";
 // import Dropdown from './Dropdown';
 const Navbar = () => {
   // const [isOpen, setIsOpen] = useState(false);
@@ -17,14 +18,11 @@ const Navbar = () => {
   const isOpen = useSelector((data) => data.StateReducer.navData.isOpen);
   const hamOpen = useSelector((data) => data.StateReducer.navData.hamOpen);
   const list = useSelector((data) => data.StateReducer.navData.list);
-  const home = useSelector((data) => data.StateReducer.navData.home);
-  const movie = useSelector((data) => data.StateReducer.navData.movie);
-  const cat = useSelector((data) => data.StateReducer.navData.cat);
-
+  const path = usePathname();
   const dispatch = useDispatch();
   return (
     <>
-      <div className="flex bg-black text-gray-300 h-20 w-full justify-between items-center px-24 font-serif">
+      <div className="flex fixed top-0 z-10 bg-black text-gray-300 h-20 w-full justify-between items-center px-24 font-serif">
         <h1 className=" text-3xl font-extrabold text-white rounded-md py-3 px-4 text-center shadow-md">
           MoviesWeb
         </h1>
@@ -32,7 +30,7 @@ const Navbar = () => {
           <ul className="flex gap-5 items-center font-bold lg:gap-12">
             <Link
               href={"/"}
-              className={`px-6 py-3 rounded-md ${home ? "bg-gray-500 text-white shadow-md" : ""}  hover:bg-gray-500 duration-300 hover:text-white hover:shadow-md`}
+              className={`px-6 py-3 rounded-md ${path === "/Home" ? "bg-gray-500 text-white shadow-md" : ""}  hover:bg-gray-500 duration-300 hover:text-white hover:shadow-md`}
             >
               Home
             </Link>
@@ -42,9 +40,15 @@ const Navbar = () => {
                   // setIsOpen(!isOpen);
                   dispatch(changeIsOpen());
                 }}
-                className={`flex items-center justify-between active:border-2 ${cat ? "bg-gray-500 text-white shadow-md" : ""} duration-100 w-36 px-4 py-3 rounded-md ${isOpen ? "bg-gray-500 text-white border-2" : ""} hover:bg-gray-500 duration-300 hover:text-white hover:shadow-md`}
+                className={`flex items-center justify-between active:border-2 ${path.includes("/Categorie") ? "bg-gray-500 text-white shadow-md" : ""} duration-100 w-36 px-4 py-3 rounded-md ${isOpen ? "bg-gray-500 text-white border-2" : ""} hover:bg-gray-500 duration-300 hover:text-white hover:shadow-md`}
               >
-                <div>Categories</div>
+                <div>
+                  {!path.includes("/Categorie")
+                    ? "Categories"
+                    : list.map((val) => {
+                        return path.includes(val.id) ? val.genre : "";
+                      })}
+                </div>
                 <div>
                   {isOpen ? <IoMdArrowDropup /> : <IoMdArrowDropdown />}
                 </div>
@@ -55,15 +59,14 @@ const Navbar = () => {
                     return (
                       <Link
                         onClick={() => {
-                          // setIsOpen(!isOpen);
                           dispatch(changeIsOpen());
                         }}
-                        href={""}
+                        href={`/Categorie/${val.id}`}
                         key={i}
                         className="flex items-center text-black rounded-md shadow-sm border-gray-500 hover:bg-gray-500 hover:duration-300 hover:shadow-md p-1"
                       >
                         <IoMdArrowDropright color="black" />
-                        {val}
+                        {val.genre}
                       </Link>
                     );
                   })}
@@ -73,7 +76,7 @@ const Navbar = () => {
             {/* <Dropdown/> */}
             <Link
               href={"/Movies"}
-              className={`px-6 py-3 rounded-md ${movie ? "bg-gray-500 text-white shadow-md" : ""} hover:bg-gray-500 duration-300 hover:text-white hover:shadow-md`}
+              className={`px-6 py-3 rounded-md ${path === "/Movies" ? "bg-gray-500 text-white shadow-md" : ""} hover:bg-gray-500 duration-300 hover:text-white hover:shadow-md`}
             >
               Movies
             </Link>
